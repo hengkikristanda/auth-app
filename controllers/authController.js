@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const userService = require("../services/userService");
 const emailService = require("../services/emailService");
 const { validateInputPassword, generateRandomPassword } = require("../utils/commonUtils");
@@ -69,6 +69,8 @@ const register = async (req, res) => {
 			responseBody.statusCode = 400;
 			return res.status(400).json(responseBody);
 		}
+
+		await userService.register(username, password);
 
 		responseBody.isSuccess = true;
 		responseBody.responseMessage = "Your accout has been successfully created";

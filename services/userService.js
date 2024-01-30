@@ -1,5 +1,5 @@
 const User = require("../models/User");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const { generateTimestampBasedUUID } = require("../utils/commonUtils");
 
 const findByUserId = (userId) => {
@@ -18,11 +18,11 @@ const findByPk = (id) => {
 	}
 };
 
-const register = async (username, password) => {
+const register = async (username, password, roleId = '018d0tqmbp7ee6m9') => {
 	try {
 		const hashedPassword = await bcrypt.hash(password, 10);
 		const id = generateTimestampBasedUUID();
-		return User.create({ id, userId: username, encodedPassword: hashedPassword });
+		return User.create({ id, userId: username, encodedPassword: hashedPassword, userRoleId: roleId });
 	} catch (error) {
 		console.log(error);
 		throw new Error("Error Creating New User");

@@ -3,6 +3,8 @@ const bcrypt = require("bcryptjs");
 const userService = require("../services/userService");
 const emailService = require("../services/emailService");
 const { validateInputPassword, generateRandomPassword } = require("../utils/commonUtils");
+const dotenv = require("dotenv");
+
 
 class ResponseBody {
 	constructor(success = false, message = "", code = 200) {
@@ -22,6 +24,7 @@ class ResponseBody {
 }
 
 const generateToken = (user) => {
+	dotenv.config({ path: '.env.properties' });
 	return jwt.sign(
 		{
 			id: user.id,

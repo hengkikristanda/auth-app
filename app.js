@@ -3,11 +3,9 @@ const express = require("express");
 const cookieParser = require("cookie-parser");
 const helmet = require("helmet");
 
-const { config } = require("dotenv");
+const dotenv = require("dotenv");
 const cors = require("cors");
 const authRoutes = require("./routes/authRoutes");
-
-config();
 
 const app = express();
 
@@ -26,7 +24,8 @@ app.use(helmet());
 app.use("/auth", authRoutes);
 
 // Server setup
-const PORT = process.env.PORT || 3000;
+dotenv.config({ path: ".env.properties" });
+const PORT = process.env.SERVER_PORT || 3000;
 app.listen(PORT, () => {
 	console.log(`Server is running on port ${PORT}`);
 });

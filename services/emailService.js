@@ -1,6 +1,10 @@
 const nodemailer = require("nodemailer");
+const dotenv = require("dotenv");
 const { generateRandomPassword } = require("../utils/commonUtils");
-require("dotenv").config();
+
+dotenv.config({ path: '.env.properties' });
+
+
 
 function generateEmailBody(newPassword) {
 	return `

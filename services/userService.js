@@ -43,10 +43,6 @@ const updatePassword = async (userId, newPassword) => {
 };
 
 const update = async (user) => {
-	console.log(user.id);
-	console.log(user.firstName);
-	console.log(user.lastName);
-	console.log(user.phone);
 
 	try {
 		return User.update(

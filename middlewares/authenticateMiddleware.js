@@ -1,11 +1,12 @@
 // authenticateMiddleware.js
 
 const jwt = require("jsonwebtoken");
+const dotenv = require("dotenv");
 
 const authenticateMiddleware = (req, res, next) => {
 	// Get the token from the request headers or cookies
 
-	console.log(req);
+	dotenv.config({ path: ".env.properties" });
 
 	const token = req.headers.authorization || req.cookies.token;
 

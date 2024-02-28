@@ -5,7 +5,6 @@ const emailService = require("../services/emailService");
 const { validateInputPassword, generateRandomPassword } = require("../utils/commonUtils");
 const dotenv = require("dotenv");
 
-
 class ResponseBody {
 	constructor(success = false, message = "", code = 200) {
 		this.success = success;
@@ -24,7 +23,7 @@ class ResponseBody {
 }
 
 const generateToken = (user) => {
-	dotenv.config({ path: '.env.properties' });
+	dotenv.config({ path: ".env.properties" });
 	return jwt.sign(
 		{
 			id: user.id,
@@ -33,7 +32,7 @@ const generateToken = (user) => {
 		},
 		process.env.JWT_SECRET,
 		{
-			expiresIn: "15m",
+			expiresIn: "1h",
 		}
 	);
 };
@@ -135,6 +134,7 @@ const login = async (req, res) => {
 		responseBody.statusCode = 200;
 		responseBody.response = {
 			userId: user.userId,
+			firstName: user.firstName,
 			token: token,
 		};
 

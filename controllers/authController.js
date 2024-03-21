@@ -1,3 +1,4 @@
+const axios = require("axios");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const userService = require("../services/userService");
@@ -270,4 +271,10 @@ const testConnection = async (req, res) => {
 	}
 };
 
-module.exports = { register, login, updatePassword, resetPassword, testConnection };
+module.exports = {
+	register,
+	login,
+	updatePassword,
+	resetPassword,
+	testConnection,
+};

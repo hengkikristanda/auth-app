@@ -9,11 +9,23 @@ const authRoutes = require("./routes/authRoutes");
 
 const app = express();
 
+const allowedIps = ["123.45.67.89", "98.76.54.32"];
+
+app.use((req, res, next) => {
+	const clientIp = req.ip; // or req.headers['x-forwarded-for'] if you're behind a reverse proxy
+	if (allowedIps.includes(clientIp)) {
+		next();
+	} else {
+		res.status(403).send("Your IP address is not allowed to access this server.");
+	}
+});
+
 const allowedDomains = [
 	"http://127.0.0.1:3200",
 	"http://localhost:3200",
 	"https://uat-ilimits-v2.soliditi.tech/",
 	"https://www.ilimitsinv.com/",
+	"https://www.ilimits.id/",
 ]; // Add your allowed domains here
 
 const corsOptions = {

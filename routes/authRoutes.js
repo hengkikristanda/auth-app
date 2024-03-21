@@ -14,4 +14,6 @@ router.get("/user/:userId", userController.getUser);
 router.put("/user/:userId", userController.updateUserInfo);
 router.post("/sendEmail/:purpose?", emailController.send);
 
+router.get("/test-connection", authController.testConnection);
+
 module.exports = router;

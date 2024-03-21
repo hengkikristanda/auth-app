@@ -257,4 +257,17 @@ const resetPassword = async (req, res) => {
 	}
 };
 
-module.exports = { register, login, updatePassword, resetPassword };
+const testConnection = async (req, res) => {
+	try {
+		const ipAddress = req.ip;
+
+		res.status(200).json({
+			message: "Success",
+			source: ipAddress,
+		});
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+module.exports = { register, login, updatePassword, resetPassword, testConnection };

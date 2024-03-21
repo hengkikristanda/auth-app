@@ -2,6 +2,7 @@
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const helmet = require("helmet");
+const path = require('path');
 
 const dotenv = require("dotenv");
 const cors = require("cors");
@@ -17,7 +18,7 @@ app.use((req, res, next) => {
 		next();
 	} else {
 		// res.status(403).send("Your IP address is not allowed to access this server.");
-		res.send("404.html");
+		res.sendFile(path.join(__dirname, "/404-Not-Found.html"));
 	}
 });
 

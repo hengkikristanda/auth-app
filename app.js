@@ -17,7 +17,7 @@ app.use((req, res, next) => {
 		next();
 	} else {
 		// res.status(403).send("Your IP address is not allowed to access this server.");
-		res.send("home.html");
+		res.send("404.html");
 	}
 });
 

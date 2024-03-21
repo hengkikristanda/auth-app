@@ -16,7 +16,8 @@ app.use((req, res, next) => {
 	if (allowedIps.includes(clientIp)) {
 		next();
 	} else {
-		res.status(403).send("Your IP address is not allowed to access this server.");
+		// res.status(403).send("Your IP address is not allowed to access this server.");
+		res.send("home.html");
 	}
 });
 

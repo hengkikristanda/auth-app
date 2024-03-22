@@ -1,20 +1,18 @@
 // routes/authRoutes.js
 const express = require("express");
-const authController = require("../controllers/authController");
 const userController = require("../controllers/userController");
 const emailController = require("../controllers/emailController");
 
 const router = express.Router();
 
-router.post("/register", authController.register);
-router.post("/updatePassword", authController.updatePassword);
-router.post("/resetPassword", authController.resetPassword);
-router.post("/login", authController.login);
-router.get("/user/:userId", userController.getUser);
+// require middleware to validate the request
+router.post("/users", userController.create);
 router.get("/users/:userId?", userController.fetchAll);
-router.put("/user/:userId", userController.updateUserInfo);
-router.post("/sendEmail/:purpose?", emailController.send);
+router.put("/users/:userId", userController.updateUserInfo);
+router.post("/users/resetPassword/:userId", userController.resetPassword);
+router.post("/users/updatePassword", userController.updatePassword);
+router.post("/users/login", userController.login);
 
-router.get("/test-connection", authController.testConnection);
+router.get("/test-send-email/:emailAddress", emailController.testSendEmail);
 
 module.exports = router;

@@ -46,4 +46,24 @@ const send = async (req, res) => {
 	}
 };
 
-module.exports = { send };
+const testSendEmail = async (req, res) => {
+	try {
+		const email = req.params.emailAddress;
+		if (!email) {
+			return res.status(400).send({ error: "Email address is required" });
+		}
+
+		// result = await emailService.sendTestEmail(email);
+		result = await emailService.sendEmail(email, "resetPassword");
+
+		if (result.success) {
+			return res.status(200).send({ message: result.message });
+		}
+		return res.status(500).send({ message: result.message });
+	} catch (error) {
+		console.error(error);
+		res.status(500).json({ error: "Internal Server Error" });
+	}
+};
+
+module.exports = { send, testSendEmail };

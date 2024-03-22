@@ -1,17 +1,13 @@
 class ResponseBody {
-	constructor(success = false, message = "", code = 200) {
+	constructor(success = false, message = "") {
 		this.success = success;
 		this.message = message;
-		this.code = code;
 	}
 	set isSuccess(value) {
 		this.success = value;
 	}
 	set responseMessage(value) {
 		this.message = value;
-	}
-	set statusCode(value) {
-		this.code = value;
 	}
 }
 

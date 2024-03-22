@@ -1,5 +1,6 @@
 const User = require("../models/User");
 const bcrypt = require("bcryptjs");
+const { v4: uuidv4 } = require("uuid");
 const { generateTimestampBasedUUID } = require("../utils/commonUtils");
 
 const findByUserId = (userId) => {
@@ -10,31 +11,28 @@ const findByUserId = (userId) => {
 	}
 };
 
-const findAll = () => {
+const findAll = (userId) => {
 	try {
+		if (userId) {
+			return User.findAll({ where: { userId } });
+		}
 		return User.findAll();
 	} catch (error) {
 		console.log(error);
 	}
 };
 
-const findByPk = (id) => {
-	try {
-		return User.findOne({ where: { id } });
-	} catch (error) {
-		console.log(error);
-	}
-};
-
-const register = async (username, password, roleId = "018d0tqmbp7ee6m9") => {
+const create = async (username, firstName, lastName, phone, password, userRoleId) => {
 	try {
 		const hashedPassword = await bcrypt.hash(password, 10);
-		const id = generateTimestampBasedUUID();
 		return User.create({
-			id,
+			id: uuidv4(),
 			userId: username,
+			firstName,
+			lastName,
+			phone,
 			encodedPassword: hashedPassword,
-			userRoleId: roleId,
+			userRoleId,
 		});
 	} catch (error) {
 		console.log(error);
@@ -55,16 +53,9 @@ const updatePassword = async (userId, newPassword) => {
 	}
 };
 
-const update = async (user) => {
+const update = async (userId, firstName, lastName, phone) => {
 	try {
-		return User.update(
-			{
-				firstName: user.firstName,
-				lastName: user.lastName,
-				phone: user.phone,
-			},
-			{ where: { id: user.id } }
-		);
+		return User.update({ firstName, lastName, phone }, { where: { userId } });
 	} catch (error) {
 		console.log(error);
 		throw new Error("Error Updating Password");
@@ -80,4 +71,11 @@ const failedAttempt = (user) => {
 	}
 };
 
-module.exports = { findByUserId, register, failedAttempt, updatePassword, update, findByPk, findAll };
+module.exports = {
+	findByUserId,
+	create,
+	failedAttempt,
+	updatePassword,
+	update,
+	findAll,
+};

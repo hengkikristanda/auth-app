@@ -47,13 +47,6 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.set("trust proxy", true);
 
-// // Middleware
-// app.use(
-// 	cors({
-// 		origin: "http://localhost:3000", // Replace with your frontend's domain
-// 		credentials: true,
-// 	})
-// );
 app.use(express.json());
 app.use(cookieParser());
 app.use(helmet());
@@ -61,8 +54,6 @@ app.use(helmet());
 // Routes
 app.use("/auth", authRoutes);
 
-// Server setup
-// dotenv.config({ path: ".env.properties" });
 const PORT = process.env.SERVER_PORT || 3000;
 app.listen(PORT, () => {
 	console.log(`Server is running on port ${PORT}`);

@@ -1,7 +1,10 @@
 const { Sequelize } = require("sequelize");
 const { config } = require("dotenv");
+const { Client } = require("ssh2");
 
 config();
+
+const sshClient = new Client();
 
 // Database connection configuration
 const sequelize = new Sequelize(
@@ -13,6 +16,19 @@ const sequelize = new Sequelize(
 		dialect: "mysql",
 	}
 );
+
+const tunnelConfig = {
+	host: "ssh_server_host",
+	port: 22,
+	username: "ssh_user",
+	privateKey: require("fs").readFileSync("/path/to/your/private/key"),
+};
+const forwardConfig = {
+	srcHost: "127.0.0.1", // local end of the tunnel
+	srcPort: 3307, // port to forward from
+	dstHost: dbServer.host, // destination MySQL host
+	dstPort: dbServer.port, // destination MySQL port
+};
 
 // Test the database connection
 async function testConnection() {

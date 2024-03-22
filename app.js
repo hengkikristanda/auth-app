@@ -2,7 +2,7 @@
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const helmet = require("helmet");
-const path = require('path');
+const path = require("path");
 
 const dotenv = require("dotenv");
 const cors = require("cors");
@@ -10,7 +10,9 @@ const authRoutes = require("./routes/authRoutes");
 
 const app = express();
 
-const allowedIps = ["123.45.67.89", "98.76.54.32"];
+// 153.92.10.227 niagahoster
+
+const allowedIps = ["153.92.10.227", "139.0.206.118", "139.162.57.105", "127.0.0.1", "::1"];
 
 app.use((req, res, next) => {
 	const clientIp = req.ip; // or req.headers['x-forwarded-for'] if you're behind a reverse proxy

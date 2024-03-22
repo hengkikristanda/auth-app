@@ -11,6 +11,7 @@ router.post("/updatePassword", authController.updatePassword);
 router.post("/resetPassword", authController.resetPassword);
 router.post("/login", authController.login);
 router.get("/user/:userId", userController.getUser);
+router.get("/users/:userId?", userController.fetchAll);
 router.put("/user/:userId", userController.updateUserInfo);
 router.post("/sendEmail/:purpose?", emailController.send);
 

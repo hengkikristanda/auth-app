@@ -10,6 +10,14 @@ const findByUserId = (userId) => {
 	}
 };
 
+const findAll = () => {
+	try {
+		return User.findAll();
+	} catch (error) {
+		console.log(error);
+	}
+};
+
 const findByPk = (id) => {
 	try {
 		return User.findOne({ where: { id } });
@@ -18,11 +26,16 @@ const findByPk = (id) => {
 	}
 };
 
-const register = async (username, password, roleId = '018d0tqmbp7ee6m9') => {
+const register = async (username, password, roleId = "018d0tqmbp7ee6m9") => {
 	try {
 		const hashedPassword = await bcrypt.hash(password, 10);
 		const id = generateTimestampBasedUUID();
-		return User.create({ id, userId: username, encodedPassword: hashedPassword, userRoleId: roleId });
+		return User.create({
+			id,
+			userId: username,
+			encodedPassword: hashedPassword,
+			userRoleId: roleId,
+		});
 	} catch (error) {
 		console.log(error);
 		throw new Error("Error Creating New User");
@@ -43,7 +56,6 @@ const updatePassword = async (userId, newPassword) => {
 };
 
 const update = async (user) => {
-
 	try {
 		return User.update(
 			{
@@ -68,4 +80,4 @@ const failedAttempt = (user) => {
 	}
 };
 
-module.exports = { findByUserId, register, failedAttempt, updatePassword, update, findByPk };
+module.exports = { findByUserId, register, failedAttempt, updatePassword, update, findByPk, findAll };

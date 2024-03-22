@@ -84,4 +84,35 @@ const updateUserInfo = async (req, res) => {
 	}
 };
 
-module.exports = { getUser, updateUserInfo };
+const fetchAll = async (req, res) => {
+	const responseBody = new ResponseBody();
+	try {
+		responseBody.isSuccess = false;
+		responseBody.responseMessage = "No Users data fouond";
+		responseBody.statusCode = 404;
+
+		// const userId = req.params.userId;
+
+		// if (!userId) {
+		// 	return res.status(400).json(responseBody);
+		// }
+
+		const users = await userService.findAll();
+
+		if (users) {
+			responseBody.isSuccess = true;
+			responseBody.responseMessage = "Data fetch successfully";
+			responseBody.data = users;
+			return res.status(200).json(responseBody);
+		}
+
+		return res.status(400).json(responseBody);
+	} catch (error) {
+		console.error(error);
+		responseBody.responseMessage = error;
+		responseBody.statusCode = 500;
+		res.status(500).json(responseBody);
+	}
+};
+
+module.exports = { getUser, updateUserInfo, fetchAll };
